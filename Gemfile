@@ -30,6 +30,12 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Use RSpec test framework
   gem 'rspec-rails',      ">= 2.0.0.beta"
+  gem 'factory_bot_rails'
+end
+
+group :test do
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
 end
 
 group :development do
