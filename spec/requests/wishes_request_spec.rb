@@ -63,4 +63,22 @@ RSpec.describe "Wishes", type: :request do
     end
   end
 
+  describe "DELETE #destroy" do
+    before(:example) do
+      # Arrange
+      @wish1 = create(:wish)
+      @wish2 = create(:wish)
+      # p Wish.all
+      delete "/wishes/#{@wish1.id}"
+    end
+
+    it 'has a http no content response status' do
+      expect(response).to have_http_status(:no_content)
+    end
+
+    it 'deletes the Wish from the database' do
+      expect(Wish.count).to eq(1)
+    end
+  end
+
 end
