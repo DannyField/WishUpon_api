@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_003406) do
+ActiveRecord::Schema.define(version: 2020_07_16_024007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "keywords", force: :cascade do |t|
+    t.string "word"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wish_keywords", force: :cascade do |t|
+    t.bigint "wish_id", null: false
+    t.bigint "keyword_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["keyword_id"], name: "index_wish_keywords_on_keyword_id"
+    t.index ["wish_id"], name: "index_wish_keywords_on_wish_id"
+  end
 
   create_table "wishes", force: :cascade do |t|
     t.string "title"
@@ -28,4 +43,6 @@ ActiveRecord::Schema.define(version: 2020_07_16_003406) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "wish_keywords", "keywords"
+  add_foreign_key "wish_keywords", "wishes"
 end
