@@ -8,6 +8,8 @@ FactoryBot.define do
     is_completed {false}
     is_matched {false}
 
+    association :user
+    
     trait :invalid do
       title {nil}
     end
