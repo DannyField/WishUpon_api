@@ -18,6 +18,7 @@ RSpec.describe Wish, type: :model do
   end
 
   context 'associations' do
+    it { expect(subject).to have_many(:keywords).through(:wish_keywords) }
     it {expect(subject).to belong_to(:user)}
   end
 end
