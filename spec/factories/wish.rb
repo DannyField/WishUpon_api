@@ -8,7 +8,7 @@ FactoryBot.define do
     is_completed {false}
     is_matched {false}
 
-    wish :invalid do
+    trait :invalid do
       title {nil}
     end
   end
