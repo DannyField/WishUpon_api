@@ -3,7 +3,7 @@ class WishesController < ApplicationController
 
     def index
         wishes = Wish.all
-        render json: {wishes: wishes}
+        render json: { wishes: wishes }
     end
 
     def show
@@ -14,14 +14,18 @@ class WishesController < ApplicationController
         wish = Wish.new(wish_params)
         puts wish.errors.full_mesages
         if wish.save
-            render json: "A new wish has been created", status: :created
+            render json:{}, status: :created
         else
             render json: {errors: wish.errors.full_mesages}, status: :unprocessable_entity 
+        end
     end
 
     def update
-        @wish.update(wish_params)
-        render json: "The wish has been updated", status: :unprocessable_entity
+        if @wish.update(wish_params)
+            render json: {}, status: :no_content
+        else 
+            render json: {errors: @wish.errors.full_mesages}, status: :unprocessable_entity
+        end
     end
 
     def destroy
