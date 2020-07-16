@@ -81,4 +81,42 @@ RSpec.describe "Wishes", type: :request do
     end
   end
 
+  describe "PUT #update" do
+    context 'when the params are valid' do
+
+      before(:example) do
+        # Arrange
+        @wish1 = create(:wish)
+        @updated_title = "Updated Wish"
+        put "/wishes/#{@wish1.id}", params: { wish: { title: @updated_title} }, headers: authenticated_header
+        # p @wish1
+      end
+
+      it 'returns a http no content response status' do
+        expect(response).to have_http_status(:no_content)
+      end
+
+      it 'update the wish attributes information in the database' do
+        expect(Wish.find(@wish1.id).title).to eq("Updated Wish")
+      end
+    end
+
+    context 'when the params are invalid' do
+      before(:example) do
+        @wish = create(:wish)
+        put "/wishes/#{@wish.id}", params: {wish:{title:nil}}, headers: authenticated_header
+        # pp response
+        @json_response = JSON.parse(response.body)
+      end
+
+      it 'returns a unprocessable entity response' do
+        expect((response)).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'has the correct number of errors' do
+        expect(@json_response['errors'].count).to eq(2)
+      end
+    end
+  end
+
 end
