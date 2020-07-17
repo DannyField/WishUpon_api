@@ -42,16 +42,21 @@ end
 
 country1 = Country.create(name:"Australia")
 country2 = Country.create(name:"China")
+puts "Countries are created"
 
 hobby1 = Hobby.create(name:"fishing")
 hobby2 = Hobby.create(name:"painting")
+puts "Hobbies are created"
 
 keyword1 = Keyword.create(word:"friend")
 keyword2 = Keyword.create(word:"travel")
 keyword3 = Keyword.create(word:"japan")
+puts "Keywords are created"
 
 WishKeyword.create(wish_id:1, keyword_id:1)
 WishKeyword.create(wish_id:1, keyword_id:2)
 WishKeyword.create(wish_id:1, keyword_id:3)
+puts "WishKeyword relationship are created"
 
 UserHobby.create(user_id: 1, hobby_id:2)
+puts "UserHobby relationship are created"
