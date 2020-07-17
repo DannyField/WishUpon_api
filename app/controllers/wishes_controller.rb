@@ -38,7 +38,7 @@ class WishesController < ApplicationController
 private
 
     def wish_params
-        params.require(:wish).permit(:title, :description, :is_secret, :is_anonymous, :is_completed, :is_matched, :like, :expiry_time)
+        params.require(:wish).permit(:title, :description, :is_secret, :is_anonymous, :is_completed, :is_matched, :like, :expiry_time, :user_id)
     end
 
     def find_wish 
