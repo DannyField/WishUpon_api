@@ -6,10 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-puts "Creating a user role"
+country1 = Country.create(name:"Australia")
+country2 = Country.create(name:"China")
+puts "Countries are created"
 
-1.times do 
-    u = User.create(
+user1 = User.create(
         email: "admin@wishupon.com",
         password: "password",
         first_name: 'Adam',
@@ -19,29 +20,23 @@ puts "Creating a user role"
         is_admin: true,
         gender: 0,
         country_id: 1
-    )
-puts "#{u.email} : was added to users"
-end
+      )
 
-1.times do 
-    u = User.create(
+user2 = User.create(
         email: "user1@wishupon.com",
         password: "password",
         first_name: 'Ming',
-        last_name: 'Zhang',
+        last_name: 'Zhu',
         nickname: 'user1',
-        age: 100,
+        age: 20,
         is_admin: false,
         gender: 0,
         country_id: 2
-    )
-puts "#{u.email} : was added to users"
-end
+      )
+puts "user created"
 
-puts "Creating new wishes"
 
-1.times do
-    w = Wish.create(
+wish1 = Wish.create(
         title: "I want to win Lotto",
         description: "Need to pay off the mafia for my gambling debt. So please let me win Lotto",
         is_secret: false,
@@ -51,28 +46,20 @@ puts "Creating new wishes"
         like: 4,
         expiry_time: nil,
         user_id: 1
-    )
-puts "#{w.title} : wish completed!"
-end
+      )
 
-1.times do
-    w = Wish.create(
-        title: "I want score 7 in IELTS",
-        description: "I want to score 7 in IELTS exam to get into a good university",
+wish2 = Wish.create(
+        title: "I want score 7 in IELTS exam",
+        description: "I want score 7 in IELTS exam this year",
         is_secret: false,
         is_anonymous: false,
         is_completed: false,
         is_matched: false,
         like: 5,
         expiry_time: nil,
-        user_id: 1
-    )
-puts "#{w.title} : wish completed!"
-end
-
-country1 = Country.create(name:"Australia")
-country2 = Country.create(name:"China")
-puts "Countries are created"
+        user_id: 2
+      )
+puts "wishes created!"
 
 hobby1 = Hobby.create(name:"fishing")
 hobby2 = Hobby.create(name:"painting")
