@@ -23,6 +23,21 @@ puts "Creating a user role"
 puts "#{u.email} : was added to users"
 end
 
+1.times do 
+    u = User.create(
+        email: "user1@wishupon.com",
+        password: "password",
+        first_name: 'Ming',
+        last_name: 'Zhang',
+        nickname: 'user1',
+        age: 100,
+        is_admin: false,
+        gender: 0,
+        country_id: 2
+    )
+puts "#{u.email} : was added to users"
+end
+
 puts "Creating new wishes"
 
 1.times do
@@ -34,6 +49,21 @@ puts "Creating new wishes"
         is_completed: false,
         is_matched: false,
         like: 4,
+        expiry_time: nil,
+        user_id: 1
+    )
+puts "#{w.title} : wish completed!"
+end
+
+1.times do
+    w = Wish.create(
+        title: "I want score 7 in IELTS",
+        description: "I want to score 7 in IELTS exam to get into a good university",
+        is_secret: false,
+        is_anonymous: false,
+        is_completed: false,
+        is_matched: false,
+        like: 5,
         expiry_time: nil,
         user_id: 1
     )
@@ -56,7 +86,11 @@ puts "Keywords are created"
 WishKeyword.create(wish_id:1, keyword_id:1)
 WishKeyword.create(wish_id:1, keyword_id:2)
 WishKeyword.create(wish_id:1, keyword_id:3)
+WishKeyword.create(wish_id:2, keyword_id:1)
+WishKeyword.create(wish_id:2, keyword_id:2)
+WishKeyword.create(wish_id:2, keyword_id:3)
 puts "WishKeyword relationship are created"
 
 UserHobby.create(user_id: 1, hobby_id:2)
+UserHobby.create(user_id: 2, hobby_id:1)
 puts "UserHobby relationship are created"
