@@ -1,5 +1,5 @@
 class WishesController < ApplicationController
-    before_action :authenticate_user, only: %i[create update delete]
+    # before_action :authenticate_user, only: %i[create update delete]
     before_action :find_wish, only: [:show, :update, :destroy]
 
     def index
