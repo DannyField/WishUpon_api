@@ -15,5 +15,8 @@ RSpec.describe User, type: :model do
 
   context 'associations' do
     it { expect(subject).to have_many(:wishes) }
+    it { expect(subject).to have_many(:hobbies) }
+    it { expect(subject).to belong_to(:country)}
+    it { expect(subject).to have_many(:comments)}
   end
 end

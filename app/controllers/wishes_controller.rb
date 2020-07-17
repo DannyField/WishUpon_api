@@ -1,4 +1,5 @@
 class WishesController < ApplicationController
+    # before_action :authenticate_user, only: %i[create update delete]
     before_action :find_wish, only: [:show, :update, :destroy]
 
     def index
@@ -12,7 +13,7 @@ class WishesController < ApplicationController
 
     def create
         wish = Wish.new(wish_params)
-        puts wish.errors.full_mesages
+        puts wish.errors.full_messages
         if wish.save
             render json:{}, status: :created
         else
@@ -24,7 +25,7 @@ class WishesController < ApplicationController
         if @wish.update(wish_params)
             render json: {}, status: :no_content
         else 
-            render json: {errors: @wish.errors.full_mesages}, status: :unprocessable_entity
+            render json: {errors: @wish.errors.full_messages}, status: :unprocessable_entity
         end
     end
 
@@ -37,7 +38,7 @@ class WishesController < ApplicationController
 private
 
     def wish_params
-        params.require(:wish).permit(:title, :description, :is_secret, :is_anonymous, :is_completed, :is_matched, :like, :expiry_time)
+        params.require(:wish).permit(:title, :description, :is_secret, :is_anonymous, :is_completed, :is_matched, :like, :expiry_time, :user_id)
     end
 
     def find_wish 

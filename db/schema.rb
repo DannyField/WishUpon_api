@@ -10,15 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_073801) do
+ActiveRecord::Schema.define(version: 2020_07_16_131333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.bigint "wish_id", null: false
+    t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index ["wish_id"], name: "index_comments_on_wish_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hobbies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "keywords", force: :cascade do |t|
     t.string "word"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_hobbies", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "hobby_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hobby_id"], name: "index_user_hobbies_on_hobby_id"
+    t.index ["user_id"], name: "index_user_hobbies_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -32,6 +63,8 @@ ActiveRecord::Schema.define(version: 2020_07_16_073801) do
     t.integer "gender"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "country_id", null: false
+    t.index ["country_id"], name: "index_users_on_country_id"
   end
 
   create_table "wish_keywords", force: :cascade do |t|
@@ -54,8 +87,16 @@ ActiveRecord::Schema.define(version: 2020_07_16_073801) do
     t.datetime "expiry_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_wishes_on_user_id"
   end
 
+  add_foreign_key "comments", "users"
+  add_foreign_key "comments", "wishes"
+  add_foreign_key "user_hobbies", "hobbies"
+  add_foreign_key "user_hobbies", "users"
+  add_foreign_key "users", "countries"
   add_foreign_key "wish_keywords", "keywords"
   add_foreign_key "wish_keywords", "wishes"
+  add_foreign_key "wishes", "users"
 end

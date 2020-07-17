@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :wish_keyword do
-    wish { nil }
-    keyword { nil }
+    wish
+    keyword
   end
 end

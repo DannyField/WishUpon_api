@@ -6,26 +6,37 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-puts "Creating a user role"
+country1 = Country.create(name:"Australia")
+country2 = Country.create(name:"China")
+puts "Countries are created"
 
-1.times do 
-    u = User.create(
+user1 = User.create(
         email: "admin@wishupon.com",
-        password_digest: "password",
+        password: "password",
         first_name: 'Adam',
         last_name: 'Admin',
         nickname: 'The Admin',
         age: 100,
         is_admin: true,
         gender: 0,
-    )
-puts "#{u.email} : was added to users"
-end
+        country_id: 1
+      )
 
-puts "Creating new wishes"
+user2 = User.create(
+        email: "user1@wishupon.com",
+        password: "password",
+        first_name: 'Ming',
+        last_name: 'Zhu',
+        nickname: 'user1',
+        age: 20,
+        is_admin: false,
+        gender: 0,
+        country_id: 2
+      )
+puts "user created"
 
-1.times do
-    w = Wish.create(
+
+wish1 = Wish.create(
         title: "I want to win Lotto",
         description: "Need to pay off the mafia for my gambling debt. So please let me win Lotto",
         is_secret: false,
@@ -34,7 +45,39 @@ puts "Creating new wishes"
         is_matched: false,
         like: 4,
         expiry_time: nil,
-    )
-puts "#{w.title} : wish completed!"
-end
+        user_id: 1
+      )
 
+wish2 = Wish.create(
+        title: "I want score 7 in IELTS exam",
+        description: "I want score 7 in IELTS exam this year",
+        is_secret: false,
+        is_anonymous: false,
+        is_completed: false,
+        is_matched: false,
+        like: 5,
+        expiry_time: nil,
+        user_id: 2
+      )
+puts "wishes created!"
+
+hobby1 = Hobby.create(name:"fishing")
+hobby2 = Hobby.create(name:"painting")
+puts "Hobbies are created"
+
+keyword1 = Keyword.create(word:"friend")
+keyword2 = Keyword.create(word:"travel")
+keyword3 = Keyword.create(word:"japan")
+puts "Keywords are created"
+
+WishKeyword.create(wish_id:1, keyword_id:1)
+WishKeyword.create(wish_id:1, keyword_id:2)
+WishKeyword.create(wish_id:1, keyword_id:3)
+WishKeyword.create(wish_id:2, keyword_id:1)
+WishKeyword.create(wish_id:2, keyword_id:2)
+WishKeyword.create(wish_id:2, keyword_id:3)
+puts "WishKeyword relationship are created"
+
+UserHobby.create(user_id: 1, hobby_id:2)
+UserHobby.create(user_id: 2, hobby_id:1)
+puts "UserHobby relationship are created"
