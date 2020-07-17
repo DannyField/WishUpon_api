@@ -13,7 +13,7 @@ class WishesController < ApplicationController
 
     def create
         wish = Wish.new(wish_params)
-        puts wish.errors.full_mesages
+        puts wish.errors.full_messages
         if wish.save
             render json:{}, status: :created
         else
@@ -25,7 +25,7 @@ class WishesController < ApplicationController
         if @wish.update(wish_params)
             render json: {}, status: :no_content
         else 
-            render json: {errors: @wish.errors.full_mesages}, status: :unprocessable_entity
+            render json: {errors: @wish.errors.full_messages}, status: :unprocessable_entity
         end
     end
 
