@@ -10,5 +10,7 @@ FactoryBot.define do
     age { 1 }
     is_admin { false }
     gender { 1 }
+
+    association :country
   end
 end
