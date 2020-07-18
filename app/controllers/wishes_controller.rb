@@ -3,7 +3,8 @@ class WishesController < ApplicationController
     before_action :find_wish, only: [:show, :update, :destroy]
 
     def index
-        wishes = Wish.all
+        # wishes = Wish.all
+        wishes = current_user.wishes.order(id: 'asc')
         render json: { wishes: wishes }
     end
 
@@ -12,6 +13,7 @@ class WishesController < ApplicationController
     end
 
     def create
+        current_user.wishes.create(wish_params)
         wish = Wish.new(wish_params)
         puts wish.errors.full_messages
         if wish.save
