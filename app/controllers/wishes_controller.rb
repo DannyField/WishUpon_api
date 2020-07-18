@@ -1,10 +1,9 @@
 class WishesController < ApplicationController
-    # before_action :authenticate_user, only: %i[create update delete]
+    before_action :authenticate_user
     before_action :find_wish, only: [:show, :update, :destroy]
 
     def index
-        # wishes = Wish.all
-        wishes = current_user.wishes.order(id: 'asc')
+        wishes = Wish.all
         render json: { wishes: wishes }
     end
 
@@ -12,15 +11,19 @@ class WishesController < ApplicationController
         render json: @wish
     end
 
+    # def create
+    #     # current_user.wishes.create(wish_params)
+    #     wish = Wish.new(wish_params)
+    #     puts wish.errors.full_messages
+    #     if wish.save
+    #         render json:{}, status: :created
+    #     else
+    #         render json: {errors: wish.errors.full_messages}, status: :unprocessable_entity 
+    #     end
+    # end
     def create
-        current_user.wishes.create(wish_params)
-        wish = Wish.new(wish_params)
-        puts wish.errors.full_messages
-        if wish.save
-            render json:{}, status: :created
-        else
-            render json: {errors: wish.errors.full_messages}, status: :unprocessable_entity 
-        end
+      wish = current_user.wishes.create(wish_params)
+      render json: wish, status: :created
     end
 
     def update
