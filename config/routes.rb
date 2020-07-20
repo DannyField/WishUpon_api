@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
 #  Chat function
-  resources :conversation, only: [:index, :create]
+  resources :conversations, only: [:index, :create]
   resources :messages, only: [:create]
   mount ActionCable.server => '/cable'
 
