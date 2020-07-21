@@ -81,3 +81,7 @@ puts "WishKeyword relationship are created"
 UserHobby.create(user_id: 1, hobby_id:2)
 UserHobby.create(user_id: 2, hobby_id:1)
 puts "UserHobby relationship are created"
+
+Comment.create(content:"I liked your wish.",user_id:2,wish_id:1)
+Comment.create(content:"Good luck!",user_id:1,wish_id:2)
+puts "Comments are created"
