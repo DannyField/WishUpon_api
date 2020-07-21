@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "/status/user", to: "status#user"
   post "/sign-up", to: "users#create"
   resources :wishes, only: %i[index create destroy update show]
+  resources :comments, only: [:index, :create, :destroy]
   # root to: 'wishes#index'
   # resources :users
 end
