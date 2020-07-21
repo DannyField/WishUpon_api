@@ -5,7 +5,7 @@ RSpec.describe "Wishes", type: :request do
     before(:example) do
       @first_wish = create(:wish)
       @last_wish = create(:wish)
-      get '/wishes'
+      get '/wishes', headers: authenticated_header
       @json_response = JSON.parse(response.body)
     end
 
@@ -69,7 +69,7 @@ RSpec.describe "Wishes", type: :request do
       @wish1 = create(:wish)
       @wish2 = create(:wish)
       # p Wish.all
-      delete "/wishes/#{@wish1.id}"
+      delete "/wishes/#{@wish1.id}", headers: authenticated_header
     end
 
     it 'has a http no content response status' do

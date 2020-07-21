@@ -11,19 +11,13 @@ class WishesController < ApplicationController
         render json: @wish
     end
 
-    # def create
-    #     # current_user.wishes.create(wish_params)
-    #     wish = Wish.new(wish_params)
-    #     puts wish.errors.full_messages
-    #     if wish.save
-    #         render json:{}, status: :created
-    #     else
-    #         render json: {errors: wish.errors.full_messages}, status: :unprocessable_entity 
-    #     end
-    # end
     def create
-      wish = current_user.wishes.create(wish_params)
-      render json: wish, status: :created
+      wish = current_user.wishes.new(wish_params)
+        if wish.save
+            render json:{}, status: :created
+        else
+            render json: {errors: wish.errors.full_messages}, status: :unprocessable_entity 
+        end
     end
 
     def update

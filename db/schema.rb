@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_131333) do
+ActiveRecord::Schema.define(version: 2020_07_20_104404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,12 @@ ActiveRecord::Schema.define(version: 2020_07_16_131333) do
     t.bigint "wish_id", null: false
     t.index ["user_id"], name: "index_comments_on_user_id"
     t.index ["wish_id"], name: "index_comments_on_wish_id"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "countries", force: :cascade do |t|
@@ -41,6 +47,14 @@ ActiveRecord::Schema.define(version: 2020_07_16_131333) do
     t.string "word"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "text"
+    t.bigint "conversation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
   end
 
   create_table "user_hobbies", force: :cascade do |t|
@@ -93,6 +107,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_131333) do
 
   add_foreign_key "comments", "users"
   add_foreign_key "comments", "wishes"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "user_hobbies", "hobbies"
   add_foreign_key "user_hobbies", "users"
   add_foreign_key "users", "countries"
