@@ -3,21 +3,20 @@ class CommentsController < ApplicationController
     before_action :find_comment, only: [:destroy]
 
     def index
-        comments = Comment.all
-        render json: { comments: comments }
+      @wish = Wish.find(params[:wish_id])
+      comments = @wish.comments.all
+      render json: { comments: comments }
     end
 
-    # def show
-    #     render json: @comment
-    # end
-
     def create
-      comment = current_user.comments.new(comment_params)
-        if comment.save
+      @wish = Wish.find(params[:wish_id])
+      @comment = @wish.comments.new(comment_params)
+      @comment.wish_id = @wish.id
+        if @comment.save
             render json:{}, status: :created
         else
-            render json: {errors: comment.errors.full_messages}, status: :unprocessable_entity 
-        end
+            render json: {errors: @comment.errors.full_messages}, status: :unprocessable_entity 
+        end      
     end
 
     def destroy
