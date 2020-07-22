@@ -15,3 +15,9 @@ FactoryBot.define do
     end
   end
 end
+
+def wish_with_comments
+  FactoryBot.create(:wish) do|wish|
+    FactoryBot.create_list(:comment , 2 , wish: wish)
+  end
+end

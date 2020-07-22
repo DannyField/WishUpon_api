@@ -3,9 +3,8 @@ require 'rails_helper'
 RSpec.describe "Comments", type: :request do
   describe 'GET #index' do
     before(:example) do
-      @first_comment = create(:comment)
-      @last_comment = create(:comment)
-      get '/comments', headers: authenticated_header
+      @wish = wish_with_comments
+      get "/wishes/#{@wish.id}/comments", headers: authenticated_header
       @json_response = JSON.parse(response.body)
     end
 
@@ -19,65 +18,65 @@ RSpec.describe "Comments", type: :request do
 
     it 'JSON response body contains expected attributes' do
       expect(@json_response['comments'][0]).to include({
-        'id' => @first_comment.id,
-        'content' => @first_comment.content
+        'id' => @wish.comments.first.id,
+        'content' => @wish.comments.first.content
       }) 
     end
   end
 
-  describe 'POST #create' do
-    context 'when the comment is valid' do
-      before(:example) do
-        @comment_params = attributes_for(:comment)
-        post '/comments', params: {comment: @comment_params }, headers: authenticated_header
-      end
+  # describe 'POST #create' do
+  #   context 'when the comment is valid' do
+  #     before(:example) do
+  #       @comment_params = attributes_for(:comment)
+  #       post '/comments', params: {comment: @comment_params }, headers: authenticated_header
+  #     end
 
-      it 'returns a http created status' do
-        expect(response).to have_http_status(:created)
-      end
+  #     it 'returns a http created status' do
+  #       expect(response).to have_http_status(:created)
+  #     end
 
-      it 'saves the Comment to the database' do
-        expect(Comment.last.content).to eq(@comment_params[:content])
-      end
-    end
+  #     it 'saves the Comment to the database' do
+  #       expect(Comment.last.content).to eq(@comment_params[:content])
+  #     end
+  #   end
 
-    context 'when the comment is invalid' do
-      before(:example) do
-        @comment_params = attributes_for(:comment, :invalid)
-        post '/comments', params: { comment: @comment_params }, headers: authenticated_header
-        @json_response = JSON.parse(response.body)
-      end
+  #   context 'when the comment is invalid' do
+  #     before(:example) do
+  #       @comment_params = attributes_for(:comment, :invalid)
+  #       post '/comments', params: { comment: @comment_params }, headers: authenticated_header
+  #       @json_response = JSON.parse(response.body)
+  #     end
 
-      it 'returns status unprocessable entity' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
+  #     it 'returns status unprocessable entity' do
+  #       expect(response).to have_http_status(:unprocessable_entity)
+  #     end
 
-      it 'returns the correct number of errors' do
-        expect(@json_response['errors'].count).to eq(2)
-      end
+  #     it 'returns the correct number of errors' do
+  #       expect(@json_response['errors'].count).to eq(2)
+  #     end
 
-      it 'errors contains the correct message' do
-        p @json_response
-        expect(@json_response['errors'][0]).to eq("Content can't be blank")
-      end
-    end
-  end
+  #     it 'errors contains the correct message' do
+  #       p @json_response
+  #       expect(@json_response['errors'][0]).to eq("Content can't be blank")
+  #     end
+  #   end
+  # end
 
-  describe "DELETE #destroy" do
-    before(:example) do
-      # Arrange
-      @comment1 = create(:comment)
-      @comment2 = create(:comment)
-      # p Comment.all
-      delete "/comments/#{@comment1.id}", headers: authenticated_header
-    end
+  # describe "DELETE #destroy" do
+  #   before(:example) do
+  #     # Arrange
+  #     @comment1 = create(:comment)
+  #     @comment2 = create(:comment)
+  #     # p Comment.all
+  #     delete "/comments/#{@comment1.id}", headers: authenticated_header
+  #   end
 
-    it 'has a http no content response status' do
-      expect(response).to have_http_status(:no_content)
-    end
+  #   it 'has a http no content response status' do
+  #     expect(response).to have_http_status(:no_content)
+  #   end
 
-    it 'deletes the Comment from the database' do
-      expect(Comment.count).to eq(1)
-    end
-  end
+  #   it 'deletes the Comment from the database' do
+  #     expect(Comment.count).to eq(1)
+  #   end
+  # end
 end
