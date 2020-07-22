@@ -4,11 +4,17 @@ class WishesController < ApplicationController
 
     def index
         wishes = Wish.all
-        render json: { wishes: wishes }
+        render json: wishes.as_json(
+      only: [:id, :title, :description, :created_at, :updated_at],
+      include: { user: { only: [:id, :first_name] } }
+    )
     end
 
     def show
-        render json: @wish
+        render json: @wish.as_json(
+      only: [:id, :title, :description, :created_at, :updated_at],
+      include: { user: { only: [:id, :first_name] } }
+    )
     end
 
     def create
