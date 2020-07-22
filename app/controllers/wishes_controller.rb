@@ -13,7 +13,7 @@ class WishesController < ApplicationController
     def show
         render json: @wish.as_json(
       only: [:id, :title, :description, :created_at, :updated_at],
-      include: { user: { only: [:id, :first_name] } }
+      include: { user: { only: [:id, :first_name] }, keywords: {only:[:id, :word]}  }
     )
     end
 
