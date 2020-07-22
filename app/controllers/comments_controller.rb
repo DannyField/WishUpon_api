@@ -5,7 +5,10 @@ class CommentsController < ApplicationController
     def index
       @wish = Wish.find(params[:wish_id])
       comments = @wish.comments.all
-      render json: { comments: comments }
+      render json: comments.as_json(
+      only: [:id, :content, :created_at],
+      include: { user: { only: [:id, :first_name] } }
+    )
     end
 
     def create
