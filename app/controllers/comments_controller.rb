@@ -12,6 +12,7 @@ class CommentsController < ApplicationController
       @wish = Wish.find(params[:wish_id])
       @comment = @wish.comments.new(comment_params)
       @comment.wish_id = @wish.id
+      @comment.user = current_user
         if @comment.save
             render json:{}, status: :created
         else
