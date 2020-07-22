@@ -6,7 +6,7 @@ class WishesController < ApplicationController
         wishes = Wish.all
         render json: wishes.as_json(
       only: [:id, :title, :description, :created_at, :updated_at],
-      include: { user: { only: [:id, :first_name] } }
+      include: { user: { only: [:id, :first_name] }, keywords: {only:[:id, :word]} }
     )
     end
 
