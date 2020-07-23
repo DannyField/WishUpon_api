@@ -1,6 +1,6 @@
 class WishesController < ApplicationController
     before_action :authenticate_user
-    before_action :find_wish, only: [:show, :update, :destroy]
+    before_action :find_wish, only: [:show, :update, :destroy, :update_image]
 
     def index
       wishes = Wish.all.with_attached_image
