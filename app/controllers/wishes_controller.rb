@@ -14,14 +14,14 @@ class WishesController < ApplicationController
       end
 
       render json: wishes.as_json(
-      only: [:id, :title, :description, :created_at, :updated_at],
+      only: [:id, :title, :description, :created_at, :updated_at,:image],
       include: { user: { only: [:id, :first_name] }, keywords: {only:[:id, :word]} }
     )
     end
 
     def show
         render json: @wish.as_json(
-      only: [:id, :title, :description, :created_at, :updated_at, :image],
+      only: [:id, :title, :description, :created_at, :updated_at],
       include: { user: { only: [:id, :first_name] }, keywords: {only:[:id, :word]}  }
     )
     end
