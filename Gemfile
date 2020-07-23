@@ -17,6 +17,7 @@ gem 'redis', '~> 4.0'
 gem 'bcrypt', '~> 3.1.7'
 # Knock for generating tokens
 gem 'knock', git: 'https://github.com/nsarno/knock', branch: 'master', ref: '9214cd027422df8dc31eb67c60032fbbf8fc100b'
+gem "aws-sdk-s3", "~> 1.74"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
