@@ -4,17 +4,18 @@ class WishesController < ApplicationController
 
     def index
       wishes = Wish.all.with_attached_image
-
-      wishes = wishes.map do |wish|
+      newwishes = []
+      wishes.each do |wish|
         if wish.image.attached?
-          wish.attributes.merge(image: url_for(wish.image))
+          wish.attributes.merge(image: url_for(wish.image)).save
+          newwishes.push(wish)
         else
-          wish
+          newwishes.push(wish)
         end
       end
 
-      render json: wishes.as_json(
-      only: [:id, :title, :description, :created_at, :updated_at,:image],
+      render json: newwishes.as_json(
+      only: [:id, :title, :description, :created_at, :updated_at, :image],
       include: { user: { only: [:id, :first_name] }, keywords: {only:[:id, :word]} }
     )
     end
