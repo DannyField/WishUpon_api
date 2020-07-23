@@ -6,5 +6,6 @@ class Wish < ApplicationRecord
     has_many :keywords, through: :wish_keywords
     has_many :comments
     belongs_to :user
+    has_one_attached :image
 
 end
