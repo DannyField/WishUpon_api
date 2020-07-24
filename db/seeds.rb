@@ -85,3 +85,11 @@ puts "UserHobby relationship are created"
 Comment.create(content:"I liked your wish.",user_id:2,wish_id:1)
 Comment.create(content:"Good luck!",user_id:1,wish_id:2)
 puts "Comments are created"
+
+puts "creating a chat room"
+Conversation.create(title: 'Admin private room')
+puts 'created a private room'
+
+puts "Adding a message to our chat room: Room 1"
+Message.create(text: "Welcome to our private room where we can chat", conversation_id: 1)
+puts 'A comment / message has been added to Room 1'
