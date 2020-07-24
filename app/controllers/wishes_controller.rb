@@ -11,6 +11,11 @@ class WishesController < ApplicationController
       render json: {wishes: generate_image_url([@wish])}
     end
 
+    def show_user_wishes
+      wishes = current_user.wishes.with_attached_image
+      render json: {wishes: generate_image_url(wishes)}
+    end
+
     def create
       wish = current_user.wishes.new(wish_params)
         if wish.save
