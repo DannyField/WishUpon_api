@@ -12,8 +12,10 @@ class WishesController < ApplicationController
     end
 
     def show_user_wishes
-      wishes = current_user.wishes.with_attached_image
-      render json: {wishes: generate_image_url(wishes)}
+      completed_wishes = current_user.wishes.with_attached_image.where(is_completed: true)
+      not_completed_wishes = current_user.wishes.with_attached_image.where(is_completed: false)
+
+      render json: {completed_wishes: generate_image_url(completed_wishes), not_completed_wishes: generate_image_url(not_completed_wishes)}
     end
 
     def create
@@ -49,7 +51,7 @@ class WishesController < ApplicationController
         render json: {}, status: :no_content
     end
 
-private
+  private
 
     def wish_params
         params.require(:wish).permit(:title, :description, :is_secret, :is_anonymous, :is_completed, :is_matched, :like, :expiry_time, :user_id, :image)

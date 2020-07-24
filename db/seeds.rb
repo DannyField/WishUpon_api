@@ -77,7 +77,7 @@ wish4 = Wish.create(
         description: "I want to travel to Japan but due to lockdown the travel plan is postponed. But I still hope to see the beautiful scenary of cherry blossoms.",
         is_secret: false,
         is_anonymous: false,
-        is_completed: false,
+        is_completed: true,
         is_matched: false,
         like: 0,
         expiry_time: nil,
