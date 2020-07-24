@@ -43,7 +43,7 @@ wish1 = Wish.create(
         is_anonymous: false,
         is_completed: false,
         is_matched: false,
-        like: 4,
+        like: 0,
         expiry_time: nil,
         user_id: 1
       )
@@ -55,10 +55,35 @@ wish2 = Wish.create(
         is_anonymous: false,
         is_completed: false,
         is_matched: false,
-        like: 5,
+        like: 0,
         expiry_time: nil,
         user_id: 2
       )
+
+wish3 = Wish.create(
+        title: "Looking for someone to go rock climbing with",
+        description: "I want to go rock climbing but none of my friends want to go...I want to learn from experienced rock climbers in Melbourne.",
+        is_secret: false,
+        is_anonymous: false,
+        is_completed: false,
+        is_matched: false,
+        like: 0,
+        expiry_time: nil,
+        user_id: 2
+      )
+
+wish4 = Wish.create(
+        title: "Would love to see the cherry blossoms in Japan",
+        description: "I want to travel to Japan but due to lockdown the travel plan is postponed. But I still hope to see the beautiful scenary of cherry blossoms.",
+        is_secret: false,
+        is_anonymous: false,
+        is_completed: false,
+        is_matched: false,
+        like: 0,
+        expiry_time: nil,
+        user_id: 2
+      )
+
 puts "wishes created!"
 
 hobby1 = Hobby.create(name:"fishing")
@@ -68,14 +93,24 @@ puts "Hobbies are created"
 keyword1 = Keyword.create(word:"friend")
 keyword2 = Keyword.create(word:"travel")
 keyword3 = Keyword.create(word:"japan")
+
+keyword4 = Keyword.create(word:"English")
+keyword5 = Keyword.create(word:"study")
+keyword6 = Keyword.create(word:"exam")
+
+
+keyword7 = Keyword.create(word:"money")
+keyword8 = Keyword.create(word:"Lotto")
 puts "Keywords are created"
 
-WishKeyword.create(wish_id:1, keyword_id:1)
-WishKeyword.create(wish_id:1, keyword_id:2)
-WishKeyword.create(wish_id:1, keyword_id:3)
-WishKeyword.create(wish_id:2, keyword_id:1)
-WishKeyword.create(wish_id:2, keyword_id:2)
-WishKeyword.create(wish_id:2, keyword_id:3)
+WishKeyword.create(wish_id:4, keyword_id:1)
+WishKeyword.create(wish_id:4, keyword_id:2)
+WishKeyword.create(wish_id:4, keyword_id:3)
+WishKeyword.create(wish_id:1, keyword_id:7)
+WishKeyword.create(wish_id:1, keyword_id:8)
+WishKeyword.create(wish_id:2, keyword_id:4)
+WishKeyword.create(wish_id:2, keyword_id:5)
+WishKeyword.create(wish_id:2, keyword_id:6)
 puts "WishKeyword relationship are created"
 
 UserHobby.create(user_id: 1, hobby_id:2)
