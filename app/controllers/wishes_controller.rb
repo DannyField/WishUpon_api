@@ -8,10 +8,7 @@ class WishesController < ApplicationController
     end
 
     def show
-        render json: @wish.as_json(
-      only: [:id, :title, :description, :created_at, :updated_at],
-      include: { user: { only: [:id, :first_name] }, keywords: {only:[:id, :word]}  }
-    )
+      render json: {wishes: generate_image_url([@wish])}
     end
 
     def create
