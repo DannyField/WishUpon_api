@@ -7,5 +7,6 @@ class Wish < ApplicationRecord
     has_many :comments
     belongs_to :user
     has_one_attached :image
+    attribute :is_completed, :boolean, default: false
 
 end

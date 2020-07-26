@@ -3,7 +3,7 @@ class WishesController < ApplicationController
     before_action :find_wish, only: [:show, :update, :destroy, :update_image]
 
     def index
-      wishes = Wish.all.with_attached_image
+      wishes = Wish.all.with_attached_image.where(is_secret:false)
       render json: {wishes: generate_image_url(wishes)}
     end
 
