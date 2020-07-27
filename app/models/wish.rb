@@ -8,5 +8,6 @@ class Wish < ApplicationRecord
     belongs_to :user
     has_one_attached :image
     attribute :is_completed, :boolean, default: false
+    attribute :like, :integer, default: 0 
 
 end
