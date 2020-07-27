@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "wishes/current_user", to: "wishes#show_user_wishes"
   get "/users/current_user", to: "users#show_user"
   put "/wishes/image/:id", to: "wishes#update_image"
+  get "/keywords", to: "keywords#index"
   get "/status", to: "status#index"
   get "/status/user", to: "status#user"
   post "/sign-up", to: "users#create"
