@@ -21,6 +21,9 @@ class WishesController < ApplicationController
     def create
       wish = current_user.wishes.new(wish_params)
         if wish.save
+          wish.keywords.create(word: keywords_params[:keyword1])
+          wish.keywords.create(word: keywords_params[:keyword2])
+          wish.keywords.create(word: keywords_params[:keyword3])
           if wish_params[:image]
             render json: {wish: wish, image: url_for(wish.image)}, status: :created
           else
@@ -55,6 +58,10 @@ class WishesController < ApplicationController
 
     def wish_params
         params.require(:wish).permit(:title, :description, :is_secret, :is_anonymous, :is_completed, :is_matched, :like, :expiry_time, :user_id, :image)
+    end
+
+    def keywords_params
+      params.require(:wish).permit(:keyword1, :keyword2, :keyword3)
     end
 
     def find_wish 
