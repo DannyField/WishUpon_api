@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  root to: 'wishes#index'
+  
 #  Chat function
   resources :conversations, only: [:index, :create]
   resources :messages, only: [:create]
@@ -15,9 +17,8 @@ Rails.application.routes.draw do
   get "/status/user", to: "status#user"
   post "/sign-up", to: "users#create"
   resources :wishes, only: %i[index create destroy update show] do
-    resources :comments, only: [:index, :create, :destroy]
+  resources :comments, only: [:index, :create, :destroy]
   end
   
-  # root to: 'wishes#index'
   # resources :users
 end
