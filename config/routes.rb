@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+
 #  Chat function
   resources :conversations, only: [:index, :create]
   resources :messages, only: [:create]
@@ -18,6 +19,6 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :create, :destroy]
   end
   
-  # root to: 'wishes#index'
+  root to: 'wishes#index'
   # resources :users
 end

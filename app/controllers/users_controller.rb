@@ -8,6 +8,11 @@ class UsersController < ApplicationController
         render json: "user created", status: 200
     end
 
+    def update
+        User.update(user_params)
+        render json: 'User has been updated', status: 200
+    end
+
     def show_user
       @user = current_user
       @hobbies = current_user.hobbies
