@@ -94,7 +94,7 @@ keyword1 = Keyword.create(word:"friend")
 keyword2 = Keyword.create(word:"travel")
 keyword3 = Keyword.create(word:"japan")
 
-keyword4 = Keyword.create(word:"English")
+keyword4 = Keyword.create(word:"english")
 keyword5 = Keyword.create(word:"study")
 keyword6 = Keyword.create(word:"exam")
 

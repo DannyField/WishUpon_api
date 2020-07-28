@@ -21,9 +21,11 @@ class WishesController < ApplicationController
     def create
       wish = current_user.wishes.new(wish_params)
         if wish.save
-          wish.keywords.create(word: keywords_params[:keyword1])
-          wish.keywords.create(word: keywords_params[:keyword2])
-          wish.keywords.create(word: keywords_params[:keyword3])
+
+          [keywords_params[:keyword1], keywords_params[:keyword2], keywords_params[:keyword3]].each do |keyword|
+            wish.wish_keywords.create(keyword_id: find_create_keyword(keyword))
+          end 
+
           if wish_params[:image]
             render json: {wish: wish, image: url_for(wish.image)}, status: :created
           else
@@ -36,6 +38,10 @@ class WishesController < ApplicationController
 
     def update
         if @wish.update(wish_params)
+          @wish.wish_keywords.delete_all
+          [keywords_params[:keyword1], keywords_params[:keyword2], keywords_params[:keyword3]].each do |keyword|
+            @wish.wish_keywords.create(keyword_id: find_create_keyword(keyword))
+          end 
             render json: {}, status: :no_content
         else 
             render json: {errors: @wish.errors.full_messages}, status: :unprocessable_entity
@@ -77,4 +83,15 @@ class WishesController < ApplicationController
         end
       end      
     end
+
+    def find_create_keyword(keyword)
+      found = Keyword.find_by(word: keyword.downcase)
+      if found
+        return found.id
+      else
+        found=Keyword.create(word: keyword.downcase)
+        return found.id
+      end
+    end
+
 end
