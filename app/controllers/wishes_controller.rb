@@ -38,6 +38,10 @@ class WishesController < ApplicationController
 
     def update
         if @wish.update(wish_params)
+          @wish.wish_keywords.delete_all
+          [keywords_params[:keyword1], keywords_params[:keyword2], keywords_params[:keyword3]].each do |keyword|
+            @wish.wish_keywords.create(keyword_id: find_create_keyword(keyword))
+          end 
             render json: {}, status: :no_content
         else 
             render json: {errors: @wish.errors.full_messages}, status: :unprocessable_entity
