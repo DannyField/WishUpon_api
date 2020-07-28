@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
-    def create 
-        User.create(user_params)
+    def create
+        found = Country.find_by(name: country_params[:country])
+        if !found
+          found = Country.create(name: country_params[:country])
+        end
+        found.users.create(user_params)
         render json: "user created", status: 200
     end
 
@@ -15,7 +19,10 @@ class UsersController < ApplicationController
 
     # When creating a new user, it seems that country_id must be included
     def user_params
-        params.require(:user).permit(:email, :password, :first_name,:last_name,:nickname,:age,:is_admin,:gender,:country_id)
+        params.require(:user).permit(:email, :password, :first_name,:last_name,:nickname,:age,:is_admin,:gender)
+    end
+    def country_params
+      params.require(:user).permit(:country)
     end
 end
 
