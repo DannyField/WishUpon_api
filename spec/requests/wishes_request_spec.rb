@@ -14,6 +14,7 @@ RSpec.describe "Wishes", type: :request do
     end
 
     it 'JSON response contains the correct number of entries' do
+      # p @json_response
       expect(@json_response['wishes'].count).to eq(2)
     end
 
