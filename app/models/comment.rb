@@ -1,3 +1,5 @@
+# A comment belongs to a user, and also belongs to a wish
+# A comment is only valid with valid content, ranging from 5 to 300 characters.
 class Comment < ApplicationRecord
   
   # Comments belong to a user and a wish. 
