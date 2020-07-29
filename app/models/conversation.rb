@@ -1,3 +1,4 @@
 class Conversation < ApplicationRecord
-  has_many :messages
+    # A conversation has many messages. 
+    has_many :messages
 end
