@@ -11,7 +11,6 @@ class UsersController < ApplicationController
 
   def update
     if country_params[:country]
-      # p "************"
       found = Country.find_by(name: country_params[:country])
       if !found
         found = Country.create(name: country_params[:country])
