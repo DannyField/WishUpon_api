@@ -10,10 +10,10 @@ class UsersController < ApplicationController
     end
 
     def update
-        @user = User.update(user_params)
-        @user.user_hobbies.delete_all
+        current_user.update(user_params)
+        current_user.user_hobbies.delete_all
         [hobbies_params[:hobby1], hobbies_params[:hobby2], hobbies_params[:hobby3]].each do |hobby|
-          @user.user_hobbies.create(hobby_id: find_create_hobby(hobby))
+          current_user.user_hobbies.create(hobby_id: find_create_hobby(hobby))
         end
         render json: 'User has been updated', status: 200
     end
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
         params.require(:user).permit(:email, :password, :first_name,:last_name,:nickname,:age,:is_admin,:gender)
     end
 
-    def keywords_params
+    def hobbies_params
       params.require(:user).permit(:hobby1, :hobby2, :hobby3)
     end
 

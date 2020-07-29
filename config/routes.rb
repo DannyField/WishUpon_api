@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   post "/login", to: "user_token#create"
   put "/wishes/image/:id", to: "wishes#update_image"
+  put "wishes/like/:id", to: "wishes#update_likes"
   get "wishes/current_user", to: "wishes#show_user_wishes"
   get "/users/current_user", to: "users#show_user"
   put "/wishes/image/:id", to: "wishes#update_image"

@@ -1,7 +1,6 @@
 class WishesController < ApplicationController
     before_action :authenticate_user
-    before_action :find_wish, only: [:show, :update, :destroy, :update_image]
-    before_action :authorize_user, only: [:update]
+    before_action :find_wish, only: [:show, :update, :destroy, :update_image, :update_likes]
 
     def index
       wishes = Wish.all.with_attached_image.where(is_secret:false)
@@ -38,6 +37,8 @@ class WishesController < ApplicationController
     end
 
     def update
+      if @wish.user_id == current_user.id
+      
         if @wish.update(wish_params)
           @wish.wish_keywords.delete_all
           [keywords_params[:keyword1], keywords_params[:keyword2], keywords_params[:keyword3]].each do |keyword|
@@ -47,12 +48,15 @@ class WishesController < ApplicationController
         else 
             render json: {errors: @wish.errors.full_messages}, status: :unprocessable_entity
         end
+      end
     end
 
     def update_image
-      @wish.image.purge
-      @wish.image.attach(wish_params[:image])
-      render json: url_for(@wish.image)
+      if @wish.user_id == current_user.id
+        @wish.image.purge
+        @wish.image.attach(wish_params[:image])
+        render json: url_for(@wish.image)
+      end
     end
 
     def update_likes
@@ -73,6 +77,10 @@ class WishesController < ApplicationController
 
     def keywords_params
       params.require(:wish).permit(:keyword1, :keyword2, :keyword3)
+    end
+
+    def like_params
+      params.require(:wish).permit(:like)
     end
 
     def find_wish 
@@ -98,15 +106,4 @@ class WishesController < ApplicationController
         return found.id
       end
     end
-
-    def authorize_user
-      p @wish
-      p current_user
-      if @wish.user_id == current_user.id
-        return true
-      else
-        return false
-      end
-    end
-
 end
