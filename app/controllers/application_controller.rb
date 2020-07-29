@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
     Knock::AuthToken.new(payload: { sub: current_user.id }).token
   end
 
-  def render(options=nil, extra_options={}, &block)
+  def render(options = nil, extra_options = {}, &block)
     options ||= {}
     # if the user is logged in and we're returning a json object,
     # send a new JWT with it

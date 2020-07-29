@@ -1,6 +1,6 @@
 class HobbiesController < ApplicationController
   def index
     hobbies = Hobby.all
-    render json: {hobbies:hobbies}
+    render json: { hobbies: hobbies }
   end
 end
