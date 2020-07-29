@@ -1,6 +1,7 @@
 class WishesController < ApplicationController
     before_action :authenticate_user
     before_action :find_wish, only: [:show, :update, :destroy, :update_image]
+    before_action :authorize_user, only: [:update]
 
     def index
       wishes = Wish.all.with_attached_image.where(is_secret:false)
@@ -54,6 +55,10 @@ class WishesController < ApplicationController
       render json: url_for(@wish.image)
     end
 
+    def update_likes
+      @wish.update(like_params)
+    end
+
     def destroy
         @wish = Wish.find(params[:id])
         @wish.destroy
@@ -91,6 +96,16 @@ class WishesController < ApplicationController
       else
         found=Keyword.create(word: keyword.downcase)
         return found.id
+      end
+    end
+
+    def authorize_user
+      p @wish
+      p current_user
+      if @wish.user_id == current_user.id
+        return true
+      else
+        return false
       end
     end
 

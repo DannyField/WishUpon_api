@@ -4,12 +4,17 @@ class UsersController < ApplicationController
         if !found
           found = Country.create(name: country_params[:country])
         end
-        found.users.create(user_params)
+        user = found.users.create(user_params)
+
         render json: "user created", status: 200
     end
 
     def update
-        User.update(user_params)
+        @user = User.update(user_params)
+        @user.user_hobbies.delete_all
+        [hobbies_params[:hobby1], hobbies_params[:hobby2], hobbies_params[:hobby3]].each do |hobby|
+          @user.user_hobbies.create(hobby_id: find_create_hobby(hobby))
+        end
         render json: 'User has been updated', status: 200
     end
 
@@ -26,8 +31,23 @@ class UsersController < ApplicationController
     def user_params
         params.require(:user).permit(:email, :password, :first_name,:last_name,:nickname,:age,:is_admin,:gender)
     end
+
+    def keywords_params
+      params.require(:user).permit(:hobby1, :hobby2, :hobby3)
+    end
+
     def country_params
       params.require(:user).permit(:country)
+    end
+
+    def find_create_hobby(hobby)
+      found = Hobby.find_by(name: hobby.downcase)
+      if found
+        return found.id
+      else
+        found=Hobby.create(name: hobby.downcase)
+        return found.id
+      end
     end
 end
 
