@@ -10,7 +10,17 @@ class UsersController < ApplicationController
     end
 
     def update
+        if country_params[:country]
+          p "************"
+          found = Country.find_by(name: country_params[:country])
+          if !found
+            found = Country.create(name: country_params[:country])
+          end
+          current_user.country_id = found.id
+        end
+
         current_user.update(user_params)
+          
         current_user.user_hobbies.delete_all
         [hobbies_params[:hobby1], hobbies_params[:hobby2], hobbies_params[:hobby3]].each do |hobby|
           current_user.user_hobbies.create(hobby_id: find_create_hobby(hobby))
