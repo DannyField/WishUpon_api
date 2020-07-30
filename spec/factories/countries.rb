@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :country do
-    name { "Test country" }
+        sequence :name do |n|
+       "testcountry#{n}" 
+    end
   end
 end
