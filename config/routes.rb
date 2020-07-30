@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
-
-#  Chat function
+  # Chat function
   resources :conversations, only: [:index, :create]
   resources :messages, only: [:create]
   mount ActionCable.server => '/cable'
@@ -18,6 +17,7 @@ Rails.application.routes.draw do
   get "/status/user", to: "status#user"
   post "/sign-up", to: "users#create"
   put "/users/:id", to: "users#update"
+  
   resources :wishes, only: %i[index create destroy update show] do
     resources :comments, only: [:index, :create, :destroy]
   end

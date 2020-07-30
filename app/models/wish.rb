@@ -15,7 +15,10 @@ class Wish < ApplicationRecord
   has_many :keywords, through: :wish_keywords
   has_many :comments, dependent: :destroy
 
+  # Wish can have one image attached
   has_one_attached :image
+  # Wish's attributes can be completed, whether true or false
   attribute :is_completed, :boolean, default: false
+  # A wish can also have likes, starting at 0
   attribute :like, :integer, default: 0
 end
