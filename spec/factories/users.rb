@@ -14,3 +14,9 @@ FactoryBot.define do
     association :country
   end
 end
+
+def user_with_wish
+  FactoryBot.create(:user) do|user|
+    FactoryBot.create_list(:wish , 1 , user: user)
+  end
+end

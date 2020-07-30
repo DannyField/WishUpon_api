@@ -121,12 +121,14 @@ class WishesController < ApplicationController
 
   def find_create_keyword(keyword)
     # sets the keywords to lower case
-    found = Keyword.find_by(word: keyword.downcase)
-    if found
-      return found.id
-    else
-      found = Keyword.create(word: keyword.downcase)
-      return found.id
+    if keyword
+      found = Keyword.find_by(word: keyword.downcase)
+      if found
+        return found.id
+      else
+        found = Keyword.create(word: keyword.downcase)
+        return found.id
+      end
     end
   end
 end
