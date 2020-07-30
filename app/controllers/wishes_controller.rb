@@ -120,12 +120,14 @@ class WishesController < ApplicationController
   end
 
   def find_create_keyword(keyword)
-    found = Keyword.find_by(word: keyword.downcase)
-    if found
-      return found.id
-    else
-      found = Keyword.create(word: keyword.downcase)
-      return found.id
+    if keyword
+      found = Keyword.find_by(word: keyword.downcase)
+      if found
+        return found.id
+      else
+        found = Keyword.create(word: keyword.downcase)
+        return found.id
+      end
     end
   end
 end

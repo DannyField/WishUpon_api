@@ -60,7 +60,6 @@ RSpec.describe "Comments", type: :request do
       end
 
       it 'errors contains the correct message' do
-        p @json_response
         expect(@json_response['errors'][0]).to eq("Content can't be blank")
       end
     end

@@ -5,6 +5,7 @@ FactoryBot.define do
     end
     description {'Test wish description'}
     is_anonymous {false}
+    is_secret {false}
     is_completed {false}
     is_matched {false}
 

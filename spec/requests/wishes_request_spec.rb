@@ -14,7 +14,6 @@ RSpec.describe "Wishes", type: :request do
     end
 
     it 'JSON response contains the correct number of entries' do
-      # p @json_response
       expect(@json_response['wishes'].count).to eq(2)
     end
 
@@ -67,10 +66,9 @@ RSpec.describe "Wishes", type: :request do
   describe "DELETE #destroy" do
     before(:example) do
       # Arrange
-      @wish1 = create(:wish)
-      @wish2 = create(:wish)
-      # p Wish.all
-      delete "/wishes/#{@wish1.id}", headers: authenticated_header
+      @user = user_with_wish
+      @wish1 = @user.wishes.first
+      delete "/wishes/#{@wish1.id}", headers: authenticate_user(@user)
     end
 
     it 'has a http no content response status' do
@@ -78,7 +76,7 @@ RSpec.describe "Wishes", type: :request do
     end
 
     it 'deletes the Wish from the database' do
-      expect(Wish.count).to eq(1)
+      expect(Wish.count).to eq(0)
     end
   end
 
@@ -87,9 +85,10 @@ RSpec.describe "Wishes", type: :request do
 
       before(:example) do
         # Arrange
-        @wish1 = create(:wish)
+        @user = user_with_wish
+        @wish1 = @user.wishes.first
         @updated_title = "Updated Wish"
-        put "/wishes/#{@wish1.id}", params: { wish: { title: @updated_title} }, headers: authenticated_header
+        put "/wishes/#{@wish1.id}", params: { wish: { title: @updated_title} }, headers: authenticate_user(@user)
         # p @wish1
       end
 
@@ -104,8 +103,9 @@ RSpec.describe "Wishes", type: :request do
 
     context 'when the params are invalid' do
       before(:example) do
-        @wish = create(:wish)
-        put "/wishes/#{@wish.id}", params: {wish:{title:nil}}, headers: authenticated_header
+        @user = user_with_wish
+        @wish1 = @user.wishes.first
+        put "/wishes/#{@wish1.id}", params: {wish:{title:nil}}, headers: authenticate_user(@user)
         # pp response
         @json_response = JSON.parse(response.body)
       end
