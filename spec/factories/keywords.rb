@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :keyword do
-    word { "Test keyword" }
+        sequence :word do |n|
+       "testkeyword#{n}" 
+    end
   end
 end
