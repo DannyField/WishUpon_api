@@ -6,7 +6,7 @@ class StatusController < ApplicationController
   def index
     render json: { message: 'logged in' }
   end
-
+  # renders the current user email
   def user
     render json: { user: current_user.email }
   end
