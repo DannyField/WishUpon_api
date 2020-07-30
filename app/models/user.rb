@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   # Association of user, a user has many wishes
   # a user has many comments
-  # a user has many hobbies
+  # a user has many hobbies and also allows dependents to be destoryed
   # a user belongs to a country
   has_many :wishes
   has_many :comments
@@ -15,5 +15,6 @@ class User < ApplicationRecord
   has_many :hobbies, through: :user_hobbies
   belongs_to :country
 
+  # A user can have their age displayed, and currently starts at 0
   attribute :age, :integer, default: 0
 end
