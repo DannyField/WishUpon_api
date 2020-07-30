@@ -4,9 +4,9 @@ FactoryBot.define do
        "testuser#{n}@test.com" 
     end
     password { "password123" }
-    first_name { "" }
-    last_name { "" }
-    nickname { "" }
+    first_name { "testfirstname" }
+    last_name { "testlastname" }
+    nickname { "nickname" }
     age { 1 }
     is_admin { false }
     gender { 1 }

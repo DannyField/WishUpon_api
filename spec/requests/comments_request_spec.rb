@@ -13,11 +13,11 @@ RSpec.describe "Comments", type: :request do
     end
 
     it 'JSON response contains the correct number of entries' do
-      expect(@json_response['comments'].count).to eq(2)
+      expect(@json_response.count).to eq(2)
     end
 
     it 'JSON response body contains expected attributes' do
-      expect(@json_response['comments'][0]).to include({
+      expect(@json_response[0]).to include({
         'id' => @wish.comments.first.id,
         'content' => @wish.comments.first.content
       }) 
