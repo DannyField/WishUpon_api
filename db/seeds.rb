@@ -100,7 +100,7 @@ keyword6 = Keyword.create(word:"exam")
 
 
 keyword7 = Keyword.create(word:"money")
-keyword8 = Keyword.create(word:"Lotto")
+keyword8 = Keyword.create(word:"lotto")
 puts "Keywords are created"
 
 WishKeyword.create(wish_id:4, keyword_id:1)
@@ -122,7 +122,7 @@ Comment.create(content:"Good luck!",user_id:1,wish_id:2)
 puts "Comments are created"
 
 puts "creating a chat room"
-Conversation.create(title: 'Admin private room')
+Conversation.create(title: 'Admin Private Room')
 puts 'created a private room'
 
 puts "Adding a message to our chat room: Room 1"
