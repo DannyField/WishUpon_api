@@ -82,7 +82,6 @@ RSpec.describe "Wishes", type: :request do
 
   describe "PUT #update" do
     context 'when the params are valid' do
-
       before(:example) do
         # Arrange
         @user = user_with_wish
